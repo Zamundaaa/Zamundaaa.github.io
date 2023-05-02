@@ -34,7 +34,7 @@ In most rendering systems (like in games) this wouldn't be a problem. Nearly all
 
 # Global state
 
-Before being able to properly fix it, there was one big problem: Some viewport, scale and now Y axis mirroring information was globally accessed state. During a compositing cycle, some effects render windows or the complete screen into an offscreen texture to use later, so this now became a big problem, with some effects suddenly rendering upside down into their offscreen texture. To fix this, I changed effects to explicitly pass a `RenderTarget` and a `ViewPort` object in all painting methods, which carry the relevant information. When an effect wants to override the properties now, it just creates its own `RenderTarget` and `ViewPort` and passes that to rendering methods instead of having to deal with global state, both fixing the problem and making the APIs a little bit more predictable.
+Before being able to properly fix it, there was one big problem: Some viewport, scale and now Y axis mirroring information was globally accessed state. During a compositing cycle, some effects render windows or the complete screen into an offscreen texture to use later, so this now became a big problem, with some effects suddenly rendering upside down into their offscreen texture. To fix this, I changed effects to explicitly pass a `RenderTarget` and a `RenderViewport` object in all painting methods, which carry the relevant information. When an effect wants to override the properties now, it just creates its own `RenderTarget` and `RenderViewport` and passes that to rendering methods instead of having to deal with global state, both fixing the problem and making the APIs a little bit more predictable.
 
 # The blur effect
 
