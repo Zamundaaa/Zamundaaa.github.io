@@ -28,7 +28,7 @@ When presenting application images to the screen, compositors picked the latest 
 instead of an earlier image that's actually ready for presentation.
 This meant that sometimes presentation was delayed by the kernel, and you'd see a frame be dropped entirely,
 instead of just a slightly older image.
-This issue has been solved for most compositors in the last two years using what's effectively explicit sync through a backdoor; I won't explain the details of that here, but you can read [Michel Dänzer's blog post](https://blogs.gnome.org/shell-dev/2023/03/30/ensuring-steady-frame-rates-with-gpu-intensive-clients/) about it instead.
+This issue has been solved for most compositors in the last two years using the kernel's [implicit-explicit sync interop mechanism](https://www.collabora.com/news-and-blog/blog/2022/06/09/bridging-the-synchronization-gap-on-linux/)[^1]; I won't explain the details of that here, but you can read [Michel Dänzer's blog post](https://blogs.gnome.org/shell-dev/2023/03/30/ensuring-steady-frame-rates-with-gpu-intensive-clients/) about it instead.
 
 # The "new" model: Explicit sync
 The name already suggests exactly what it does: Instead of the driver or the kernel doing potentially unexpected things in the background,
@@ -48,7 +48,7 @@ Do keep in mind though that these performance improvements are *minor*.
 While there may be some special cases where implicit sync between app and compositor was the bottleneck before, you're unlikely to notice the individual difference between implicit and explicit sync at all.
 
 # Why the big fuzz then?
-If we already have "explicit sync through a backdoor", and explicit sync doesn't bring major performance improvements for everyone, why is it such big news then?
+If we already have most of the compositor-side problems with implicit sync solved, and explicit sync doesn't bring major performance improvements for everyone, why is it such big news then?
 
 The answer is simple: The proprietary NVidia driver doesn't support implicit sync at all, and neither commonly used compositors nor the NVidia driver support the first explicit sync protocol, which means on Wayland you get significant flickering and frame pacing issues. The driver also ships with some workarounds, but they don't exactly *fix* the problem either:
 - it delays Wayland commits until rendering is completed, but it goes against how graphics APIs work on Wayland and can cause serious issues, even crash apps in extreme cases
@@ -59,3 +59,6 @@ It's not a deterministic "this doesn't work" problem but a lack of synchronizati
 
 With the explicit sync protocol being implemented in compositors and very soon in Xwayland and the proprietary NVidia driver, all those problems will finally be a thing of the past,
 and the biggest remaining blocker for NVidia users to switch to Wayland will be gone.
+
+---
+[^1]: this was referred to as "explicit sync through a backdoor" in an earlier version of this post
