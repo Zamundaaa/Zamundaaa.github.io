@@ -40,7 +40,7 @@ So if you care about color accuracy, this is not a way out of getting a Colorime
 
 Joshua Ashton implemented a new backend in gamescope, that uses Wayland subsurfaces to forward content to the host compositor instead of compositing it all into one image, and includes direct support for the `frog_color_management_v1` protocol. The result of this is that with a new enough gamescope you don't have to use any Vulkan layers to have gamescope pass HDR content to KWin, and you don't have to use the `--hdr-debug-force-output` option anymore. If you want to play a game in HDR, you can now just put
 ```
-gamescope -W 5120 -H 1440 --hdr-enabled --fullscreen %command%
+gamescope -W 5120 -H 1440 --hdr-enabled --fullscreen -- %command%
 ```
 into its launch options in Steam (with width and height adjusted to your screen ofc) and you're done.
 
