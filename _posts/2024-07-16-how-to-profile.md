@@ -11,7 +11,7 @@ I did this in Fedora 40, but you can follow these steps in other distributions a
 
 # Step 1: Install DisplayCal and start it
 This sounds easy, but
-- right now it's not packaged for Fedora. That's being worked on for Fedora 41, but right now it's not an option
+- it's not packaged for Fedora. That's being worked on, but right now it's not an option \| edit: turns out there is a [COPR](https://copr.fedorainfracloud.org/coprs/ngompa/DisplayCAL) for it
 - installing it with pip just gave me a bunch of compilation errors, and I haven't figured out how to fix them
 - the package on Flathub is *really* old and broken
 
