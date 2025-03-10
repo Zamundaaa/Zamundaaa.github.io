@@ -4,4 +4,4 @@ title: About
 permalink: /about/
 ---
 
-Nothing to see here yet, move along.
+Software Engineer at [Tech Paladin Software](https://techpaladinsoftware.com/), working on KWin, Wayland and all related things.
